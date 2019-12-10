@@ -1,0 +1,22 @@
+{
+    "entries": [
+    {
+        "date": "07/23/2025",
+        "concept": "HTML & CSS",
+        "entry": "Learned how to link our css pages to our index.html files",
+        "mood": "Positive"
+    },
+    {
+        "date": "07/24/2025",
+        "concept": "HTML & CSS",
+        "entry": "We talked about HTML components and how to make grid layouts with Flexbox in CSS.",
+        "mood": "Ok"
+    },
+    {
+        "date": "07/25/2025",
+        "concept": "Javascript",
+        "entry": "Learned about passing functions",
+        "mood": "Confused"
+    }
+    ]
+}

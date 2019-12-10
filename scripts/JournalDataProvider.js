@@ -1,39 +1,29 @@
-/*
- *   Journal data provider for Daily Journal application
- *
- *      Holds the raw data about each entry and exports
- *      functions that other modules can use to filter
- *      the entries for different purposes.
- */
+let journalEntries = []
 
-// This is the original data. Can't Touch This.
-const journal = [
-    {
-        date: "07/23/2025",
-        concept: "HTML & CSS",
-        entry: "Learned how to link our css pages to our index.html files",
-        mood: "Positive"
-    },
-    {
-        date: "07/24/2025",
-        concept: "HTML & CSS",
-        entry: "We talked about HTML components and how to make grid layouts with Flexbox in CSS.",
-        mood: "Ok"
-    },
-    {
-        date: "07/25/2025",
-        concept: "Javascript",
-        entry: "Learned about passing functions",
-        mood: "Confused"
-    },
-]
+export const useEntries = () => {
+    return journalEntries
+}
+console.log("*** I am going to fetch the data ***")
 
-/*
-    You export a function that provides a version of the
-    raw data in the format that you want
-*/
+export const getEntries = () => {     
+
+    return fetch("http://localhost:3000/entries")
+        .then(response => response.json())
+
+        .then(
+            parsedEntries => {
+                console.table(parsedEntries) 
+                journalEntries = parsedEntries.slice()
+            }
+        )
+}
+console.log("I have the data")
+
+export default getEntries
+
+
 export const useJournalEntries = () => {
-    const sortedByDate = journal.sort(
+    const sortedByDate = journalEntries.sort(
         (currentEntry, nextEntry) =>
             Date.parse(currentEntry.date) - Date.parse(nextEntry.date)
     )

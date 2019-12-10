@@ -1,6 +1,12 @@
-import { useJournalEntries } from "./JournalDataProvider.js";
+import getEntries, { useJournalEntries } from "./JournalDataProvider.js";
 import EntryListComponent from "./JournalEntryLists.js";
+import JournalFormComponent from "./form/formComponent.js";
 
-EntryListComponent()
+JournalFormComponent()
+getEntries().then(
+    () => EntryListComponent()
+)
 
 useJournalEntries()
+
+
