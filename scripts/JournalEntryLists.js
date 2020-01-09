@@ -1,20 +1,58 @@
-/*
- *  Purpose:
- *    To render as many journal entry components as
- *    there are items in the collection exposed by the
- *    data provider component
- */
-import { useJournalEntries } from "./JournalDataProvider.js"
+import { useEntries, getEntries, deleteEntry } from "./JournalDataProvider.js"
 import JournalEntryComponent from "./JournalEntry.js"
 
-// DOM reference to where all entries will be rendered
-const entryLog = document.querySelector("#entryLog")
+
+
+
+const contentTarget = document.querySelector("#entryLog")
+const eventHub = document.querySelector(".container")
 
 const EntryListComponent = () => {
-    // Use the journal entry data from the data provider component
-    const entries = useJournalEntries()
+    eventHub.addEventListener("click", clickEvent => {
+      if (clickEvent.target.id === "showEntries") {
+        getEntries().then(
+            () => {
+                const allTheEntries = useEntries()
+                render(allTheEntries)
+            }
+        )
+          }
+    })
 
-    entryLog.innerHTML += `
+    eventHub.addEventListener("click", clickEvent => {
+      if (clickEvent.target.id.startsWith("deleteEntries--")) {
+          const [prefix, id] = clickEvent.target.id.split("--")
+
+         deleteEntry(id).then( () => render(useEntries()) )
+      }
+  })
+
+  eventHub.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id.startsWith("editEntries--")) {
+      const [notUsed, entryId] = clickEvent.target.id.split("--")
+      const editEvent = new CustomEvent("editButtonClicked", {
+        detail: {
+            entryId: entryId
+        }
+    })
+
+    eventHub.dispatchEvent(editEvent)
+    }
+})
+
+eventHub.addEventListener("newEntryCreated", event => {
+  const allTheEntries = useEntries()
+  render(allTheEntries)
+})
+
+eventHub.addEventListener("entryHasBeenEdited", event => {
+  const allTheEntries = useEntries()
+  render(allTheEntries)
+})
+
+    const render = (entries) => {
+
+    contentTarget.innerHTML = `
     <section class='journalEntryList'>
         ${
           entries.map(
@@ -25,6 +63,7 @@ const EntryListComponent = () => {
             }
       </section>
     `
+}
 }
 
 export default EntryListComponent
