@@ -2,10 +2,24 @@
   "entries": [
     {
       "id": 1,
-      "concept": "Html & CSS & JavaScript",
+      "concept": "Html & CSS",
       "entry": "new stuff",
-      "mood": "sad",
-      "date": 1578605996791
+      "mood": "Sad",
+      "date": 1578942240438
+    },
+    {
+      "concept": "Flexbox",
+      "entry": "got it!",
+      "mood": "Excited",
+      "date": 1578941606034,
+      "id": 3
+    },
+    {
+      "concept": "klkjsdf",
+      "entry": "lkjsadlksda",
+      "mood": "Happy",
+      "date": 1578946621911,
+      "id": 4
     }
   ]
 }

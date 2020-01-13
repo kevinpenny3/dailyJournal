@@ -5,7 +5,7 @@
 const JournalEntryComponent = (entry) => {
     return `
         <section id="entry--${entry.id}" class="journalEntry">
-            <p>${entry.date}</p>
+            <p>${new Date(entry.date).toLocaleDateString('en-US')}</p>
             <p class="concept">${entry.concept}</p>
             <p>${entry.entry}</p>
             <p>${entry.mood}</p>
@@ -13,7 +13,6 @@ const JournalEntryComponent = (entry) => {
             <button class="editButton" id="editEntries--${entry.id}">Edit Entry</button>
             <input type="hidden" name="entryId" id="entryId">
         </section>
-        <hr>
     `
 }
 

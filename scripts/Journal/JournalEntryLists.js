@@ -4,6 +4,7 @@ import JournalEntryComponent from "./JournalEntry.js"
 
 
 
+
 const contentTarget = document.querySelector("#entryLog")
 const eventHub = document.querySelector(".container")
 
@@ -49,6 +50,13 @@ eventHub.addEventListener("entryHasBeenEdited", event => {
   const allTheEntries = useEntries()
   render(allTheEntries)
 })
+
+eventHub.addEventListener("filterClick", event => {
+  const allTheEntries = useEntries()
+  render(allTheEntries)
+})
+
+
 
     const render = (entries) => {
 

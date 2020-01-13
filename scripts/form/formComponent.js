@@ -1,4 +1,4 @@
-import { saveEntry, useEntries, editEntry } from "../JournalDataProvider.js"
+import { saveEntry, useEntries, editEntry } from "../Journal/JournalDataProvider.js"
 
 
 
@@ -25,7 +25,17 @@ const JournalFormComponent = () => {
     })
 
 
-
+    eventHub.addEventListener("click", event => {
+        if (event.target.classList.contains("filter")) {
+          const mood = event.target.value
+          const message = new CustomEvent("filterClick", {
+            detail: {
+              mood: mood
+            }
+          })
+          eventHub.dispatchEvent(message)
+        }
+      })
 
     eventHub.addEventListener("click", clickEvent => {
         if (clickEvent.target.id === "saveEntry") {
@@ -79,10 +89,22 @@ const JournalFormComponent = () => {
             <div class="box">
             <select id="mood-select">
                 <option value="" disabled selected hidden>Choose here</option>
-                <option value="happy">Happy</option>
-                <option value="sad">Sad</option>
-                <option value="excited">Super Excited</option>
+                <option value="Happy">Happy</option>
+                <option value="Sad">Sad</option>
+                <option value="Excited">Excited</option>
             </select>
+        </div>
+        </fieldset>
+        <fieldset>
+        <div class="filters">
+            <div class="moodFilter">
+            <div class="filterLabel">Filter By Moods</div>
+            <input type="radio" class="filter" name="mood" id="happyButton" value="Happy">
+            <label for="happy">Happy</label>
+            <input type="radio" id="sadButton" class="filter" name="mood" value="Sad">
+            <label for="sad">Sad</label>
+            <input type="radio" id="excitedButton" class="filter" name="mood" value="Excited">
+            <label for="Excited">Excited</label>
         </div>
         </fieldset>
         <input type="hidden" id="editedEntry" name="editButton">
