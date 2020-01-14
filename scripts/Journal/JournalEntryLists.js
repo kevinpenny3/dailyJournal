@@ -11,14 +11,14 @@ const eventHub = document.querySelector(".container")
 const EntryListComponent = () => {
     eventHub.addEventListener("click", clickEvent => {
       if (clickEvent.target.id === "showEntries") {
-        getEntries().then(
-            () => {
+        // getEntries().then(
+            // () => {
                 const allTheEntries = useEntries()
                 render(allTheEntries)
             }
-        )
-          }
-    })
+          })
+          
+    // })
 
     eventHub.addEventListener("click", clickEvent => {
       if (clickEvent.target.id.startsWith("deleteEntries--")) {
@@ -41,6 +41,24 @@ const EntryListComponent = () => {
     }
 })
 
+  eventHub.addEventListener("searchInitiated", event => {
+    const searchTerm = event.detail.search
+    console.log(searchTerm)
+    const entries = useEntries()
+    const matchingEntries = []
+
+    for (const entry of entries) {
+        for (const value of Object.values(entry)) {
+          console.log(value)
+          const valueString = String(value).toLowerCase()
+            if (valueString.includes(searchTerm)) {
+                matchingEntries.push(entry)
+            }
+        }
+    }
+      render(matchingEntries)
+    })
+
 eventHub.addEventListener("newEntryCreated", event => {
   const allTheEntries = useEntries()
   render(allTheEntries)
@@ -58,20 +76,23 @@ eventHub.addEventListener("filterClick", event => {
 
 
 
-    const render = (entries) => {
+}
+      const render = (entries) => {
+  
+      contentTarget.innerHTML = `
+      <section class='journalEntryList'>
+          ${
+            entries.map(
+              (entry) =>{
+                return JournalEntryComponent(entry)
+              }
+            ).join("")
+              }
+        </section>
+      `
+  }
 
-    contentTarget.innerHTML = `
-    <section class='journalEntryList'>
-        ${
-          entries.map(
-            (entry) =>{
-              return JournalEntryComponent(entry)
-            }
-          ).join("")
-            }
-      </section>
-    `
-}
-}
+
+
 
 export default EntryListComponent

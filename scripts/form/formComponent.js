@@ -37,6 +37,20 @@ const JournalFormComponent = () => {
         }
       })
 
+      eventHub.addEventListener("keypress", event => {
+        if (event.key === "Enter") {
+          if (event.target.id === "searchField") {
+            const searchValue = event.target.value
+            const message = new CustomEvent("searchInitiated", {
+              detail: {
+                search: searchValue
+              }
+            })
+            eventHub.dispatchEvent(message)
+          }
+        }
+      })
+
     eventHub.addEventListener("click", clickEvent => {
         if (clickEvent.target.id === "saveEntry") {
 
@@ -95,6 +109,10 @@ const JournalFormComponent = () => {
             </select>
         </div>
         </fieldset>
+        <input type="hidden" id="editedEntry" name="editButton">
+        <button class="submitButton" id="saveEntry" type="submit" value="Record Journal Entry">Submit</button>
+        <button class="showEntriesButton" id="showEntries" type="submit" value="Show Journal Entries">Show Journal Entries</button>
+        <section "filterSection">
         <fieldset>
         <div class="filters">
             <div class="moodFilter">
@@ -106,10 +124,15 @@ const JournalFormComponent = () => {
             <input type="radio" id="excitedButton" class="filter" name="mood" value="Excited">
             <label for="Excited">Excited</label>
         </div>
+        <div class="filters">
+            <div class="searchInput">
+            <div class="searchLabel">Search</div>
+            <input type="search" class="searchBar" id="searchField">
+            </div>
+        </div>
         </fieldset>
-        <input type="hidden" id="editedEntry" name="editButton">
-        <button class="submitButton" id="saveEntry" type="submit" value="Record Journal Entry">Submit</button>
-        <button class="showEntriesButton" id="showEntries" type="submit" value="Show Journal Entries">Show Journal Entries</button>
+        </section>
+
      `   
 
 }

@@ -13,6 +13,23 @@ form{
     border: none;
 }
 
+.filterSection{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filters{
+    display: flex;
+}
+
+.searchInput {
+    margin-left: 40px;
+}
+
+.searchBar {
+    width: 250px;
+}
+
 
 fieldset {
     display: flex;
@@ -139,5 +156,4 @@ hr {
     font-weight: bolder;
     font-size: 22px;
 }
-.entry--cards{
-}
+
